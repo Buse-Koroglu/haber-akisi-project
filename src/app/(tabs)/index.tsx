@@ -1,67 +1,142 @@
-import { searchNews } from "@/api/newsApi";
+import { getTopHeadlines } from "@/api/newsApi";
 import NewsCard from "@/components/NewsCard";
+import { Pagination } from "@/components/Pagination";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+const CATEGORIES = [
+  { id: "all", label: "Hepsi" },
+  { id: "business", label: "Ekonomi" },
+  { id: "technology", label: "Teknoloji" },
+  { id: "sports", label: "Spor" },
+  { id: "science", label: "Bilim" },
+  { id: "health", label: "Sağlık" },
+];
+
 export default function NewsScreen() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
+  const flatListRef = useRef<FlatList>(null);
+  const PAGE_SIZE = 10;
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       setDebouncedQuery(searchQuery.trim());
+      setCurrentPage(1);
     }, 500);
 
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
-  const {
-    data: news = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["news", debouncedQuery],
-    queryFn: () =>
-      searchNews({
-        keyword: debouncedQuery || "türkiye",
-        language: "tr",
-      }),
+  const { data, isLoading, isError, error, isFetching } = useQuery({
+    queryKey: ["news", debouncedQuery, selectedCategory, currentPage],
+    queryFn: async () => {
+      const result = await getTopHeadlines({
+        country: "us",
+        category:
+          selectedCategory === "all" ? undefined : (selectedCategory as any),
+        page: currentPage,
+        pageSize: PAGE_SIZE,
+        q: debouncedQuery || undefined,
+      });
+      return result;
+    },
   });
+
+  const articles = data?.articles ?? [];
+  const totalResults = data?.totalResults ?? 0;
+
+  useEffect(() => {
+    if (totalResults > 0) {
+      const calculatedPages = Math.ceil(totalResults / PAGE_SIZE);
+      setTotalPages(calculatedPages > 10 ? 10 : calculatedPages);
+    } else {
+      setTotalPages(1);
+    }
+  }, [totalResults]);
+
+  const handleCategoryPress = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setSearchQuery("");
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <View>
+      <View className="mx-4 my-3 relative justify-center">
         <TextInput
-          className="news-search-input mx-4 my-3 "
-          placeholder="Arama yapın..."
+          className="news-search-input pl-10 pr-4 py-2.5 rounded-xl bg-gray-100 text-black"
+          placeholder="Manşetlerde arayın..."
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           clearButtonMode="while-editing"
         />
-        <Ionicons
-          name="search"
-          size={20}
-          color="gray"
-          className="news-search-icon"
+        <View className="absolute left-3">
+          <Ionicons name="search" size={20} color="gray" />
+        </View>
+      </View>
+
+      <View className="mb-2">
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={CATEGORIES}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+          renderItem={({ item }) => {
+            const isSelected = selectedCategory === item.id;
+            return (
+              <TouchableOpacity
+                onPress={() => handleCategoryPress(item.id)}
+                className={`mr-2 px-4 py-2 rounded-full ${
+                  isSelected ? "bg-primary" : "bg-gray-100"
+                }`}
+                activeOpacity={0.7}
+              >
+                <Text
+                  className={`font-semibold text-xs ${
+                    isSelected ? "text-white" : "text-gray-600"
+                  }`}
+                >
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
         />
       </View>
-      <Text className="text-primary text-xl font-semibold px-4 py-3">
-        Haberler
+
+      <Text className="text-primary text-xl font-semibold px-4 py-2">
+        {debouncedQuery
+          ? `"${debouncedQuery}" Arama Sonuçları`
+          : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Manşetleri`}
       </Text>
 
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#1E5F8C" />
+          {isFetching && (
+            <Text className="text-muted text-xs mt-2">Yükleniyor...</Text>
+          )}
         </View>
       ) : isError ? (
         <View className="flex-1 items-center justify-center px-8">
@@ -72,19 +147,30 @@ export default function NewsScreen() {
             {(error as Error)?.message ?? "Bir hata oluştu."}
           </Text>
         </View>
-      ) : news.length === 0 ? (
+      ) : articles.length === 0 ? (
         <View className="flex-1 items-center justify-center px-8">
           <Text className="text-muted text-sm text-center">
-            Sonuç bulunamadı.
+            Aramanızla eşleşen haber bulunamadı.
           </Text>
         </View>
       ) : (
-        <FlatList
-          data={news}
-          keyExtractor={(item) => item.url}
-          renderItem={({ item }) => <NewsCard article={item} />}
-          contentContainerStyle={{ paddingBottom: 16 }}
-        />
+        <View className="flex-1">
+          <FlatList
+            ref={flatListRef}
+            data={articles}
+            keyExtractor={(item, index) => `${item.url}-${index}`}
+            renderItem={({ item }) => <NewsCard article={item} />}
+            contentContainerStyle={{ paddingBottom: 16 }}
+          />
+
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </View>
       )}
     </SafeAreaView>
   );

@@ -1,13 +1,6 @@
 const BASE_URL = process.env.EXPO_PUBLIC_NEWS_API_BASE_URL;
 const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
 
-export interface newsSearchParams {
-  keyword: string;
-  page?: number;
-  language?: string;
-  sortBy?: "relevance" | "date" | "publishedAt";
-}
-
 export interface topHeadlinesParams {
   country?: string;
   category?:
@@ -19,6 +12,8 @@ export interface topHeadlinesParams {
     | "sports"
     | "technology";
   page?: number;
+  pageSize?: number;
+  q?: string;
 }
 
 export interface Article {
@@ -35,47 +30,24 @@ export interface Article {
   content: string | null;
 }
 
-export async function searchNews({
-  keyword,
-  language = "tr",
-  page = 1,
-  sortBy = "publishedAt",
-}: newsSearchParams): Promise<Article[]> {
-  const params = new URLSearchParams({
-    q: keyword,
-    language,
-    page: page.toString(),
-    pageSize: "10",
-    sortBy,
-    apiKey: API_KEY || "",
-  });
-
-  const response = await fetch(`${BASE_URL}/everything?${params.toString()}`);
-
-  if (!response.ok) {
-    const errorBody = await response.text();
-    console.log("STATUS:", response.status);
-    console.log("BODY:", errorBody);
-    throw new Error(`Failed to fetch news articles: ${errorBody}`);
-  }
-
-  const data = await response.json();
-  // console.log("RAW API RESPONSE:", JSON.stringify(data, null, 2));
-  return data.articles ?? [];
-}
-
 export async function getTopHeadlines({
+  q: q,
   country = "tr",
   category,
   page = 1,
-}: topHeadlinesParams = {}): Promise<Article[]> {
+  pageSize = 10,
+}: topHeadlinesParams = {}): Promise<{
+  articles: Article[];
+  totalResults: number;
+}> {
   const params = new URLSearchParams({
     country,
     page: page.toString(),
-    pageSize: "50",
+    pageSize: pageSize.toString(),
     apiKey: API_KEY || "",
   });
   if (category) params.set("category", category);
+  if (q) params.set("q", q);
 
   const response = await fetch(
     `${BASE_URL}/top-headlines?${params.toString()}`,
@@ -89,5 +61,8 @@ export async function getTopHeadlines({
   }
 
   const data = await response.json();
-  return data.articles ?? [];
+  return {
+    articles: data.articles ?? [],
+    totalResults: data.totalResults ?? 0,
+  };
 }

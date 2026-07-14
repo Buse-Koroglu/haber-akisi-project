@@ -74,4 +74,47 @@
   .webview-header {
     @apply w-full h-14 bg-accent flex-row items-center px-4;
   }
+  .pagination-container {
+    @apply flex-row justify-between items-center py-4 px-2.5 border-t border-[#e0e0e0] bg-white;
+  }
+
+  .pagination-pages-container {
+    @apply flex-row items-center;
+  }
+
+  .pagination-page-button {
+    @apply w-9 h-9 justify-center items-center mx-1 rounded-full;
+  }
+
+  .pagination-active-page-button {
+    @apply bg-[#007AFF];
+  }
+
+  .pagination-page-text {
+    @apply text-sm text-[#333] font-medium;
+  }
+
+  .pagination-active-page-text {
+    @apply text-white font-bold;
+  }
+
+  .pagination-nav-button {
+    @apply px-3 py-2 rounded-md bg-[#f0f0f0];
+  }
+
+  .pagination-disabled-button {
+    @apply bg-[#f9f9f9];
+  }
+
+  .pagination-nav-button-text {
+    @apply text-[#007AFF] font-semibold text-sm;
+  }
+
+  .pagination-disabled-text {
+    @apply text-[#ccc];
+  }
+
+  .pagination-dots {
+    @apply mx-1 text-[#666] text-sm;
+  }
 }
