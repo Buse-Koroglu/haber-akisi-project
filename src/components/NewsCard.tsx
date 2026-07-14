@@ -1,4 +1,6 @@
 import { Article } from "@/api/newsApi";
+import { useFavorites } from "@/context/FavoritesContext";
+import { Ionicons } from "@expo/vector-icons";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import { useRouter } from "expo-router";
@@ -6,6 +8,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 
 const NewsCard = ({ article }: { article: Article }) => {
   const { source, title, description, urlToImage, publishedAt } = article;
+  const { toggleFavorite, isFavorite } = useFavorites();
   const router = useRouter();
 
   const handlePress = () => {
@@ -33,9 +36,19 @@ const NewsCard = ({ article }: { article: Article }) => {
           />
 
           <View className="news-card-body">
-            <Text className="news-card-source" numberOfLines={1}>
-              {source.name}
-            </Text>
+            <View className="flex-row items-center justify-between">
+              <Text className="news-card-source" numberOfLines={1}>
+                {source.name}
+              </Text>
+
+              <TouchableOpacity onPress={() => toggleFavorite(article)}>
+                <Ionicons
+                  name={isFavorite(article.url) ? "star" : "star-outline"}
+                  size={20}
+                  color={isFavorite(article.url) ? "#e91e63" : "gray"}
+                />
+              </TouchableOpacity>
+            </View>
 
             <Text className="news-card-title" numberOfLines={2}>
               {title}
