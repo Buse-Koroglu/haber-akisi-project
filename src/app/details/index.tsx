@@ -1,6 +1,14 @@
 import { Article } from "@/api/newsApi";
+import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Share,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const newsDetails = () => {
@@ -13,6 +21,25 @@ const newsDetails = () => {
       pathname: "/webview",
       params: { article: JSON.stringify(parsedArticle) },
     });
+  };
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          "Bu haberi kontrol etmek için tıklayın:\n" + parsedArticle?.url,
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+          Alert.alert("Başarılı", "İçerik başarıyla paylaşıldı!");
+        }
+      } else if (result.action === Share.dismissedAction) {
+      }
+    } catch (error: any) {
+      Alert.alert("Bir Hata Oluştu", error.message);
+    }
   };
 
   return (
@@ -50,12 +77,32 @@ const newsDetails = () => {
           </>
         )}
 
-        <TouchableOpacity
-          onPress={handlePress}
-          className="news-card-source-button"
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "space-around",
+            gap: 10,
+          }}
         >
-          <Text className="text-white">Haber Kaynağına Gidin</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleShare}
+            className="news-card-source-button"
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <Text className="text-white">Haberi Paylaşın</Text>
+              <Ionicons name="share-outline" size={15} color="white" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={handlePress}
+            className="news-card-source-button"
+          >
+            <Text className="text-white">Haber Kaynağına Gidin</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
