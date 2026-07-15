@@ -1,7 +1,7 @@
 import { Article } from "@/api/newsApi";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Ionicons } from "@expo/vector-icons";
-import { formatDistanceToNow } from "date-fns";
+import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -45,7 +45,7 @@ const NewsCard = ({ article }: { article: Article }) => {
                 <Ionicons
                   name={isFavorite(article.url) ? "star" : "star-outline"}
                   size={20}
-                  color={isFavorite(article.url) ? "#e91e63" : "gray"}
+                  color={isFavorite(article.url) ? "#F2B705" : "#6B6B66"}
                 />
               </TouchableOpacity>
             </View>
@@ -61,8 +61,7 @@ const NewsCard = ({ article }: { article: Article }) => {
             ) : null}
 
             <Text className="news-card-meta">
-              {formatDistanceToNow(new Date(publishedAt), {
-                addSuffix: true,
+              {format(new Date(publishedAt), "d MMMM yyyy, HH:mm", {
                 locale: tr,
               })}
             </Text>

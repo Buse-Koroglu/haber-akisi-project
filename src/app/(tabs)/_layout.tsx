@@ -1,3 +1,4 @@
+import { AppHeader } from "@/components/AppHeader";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -5,9 +6,10 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#e91e63",
-        tabBarInactiveTintColor: "#000000",
-        headerShown: false,
+        tabBarActiveTintColor: "#F2B705",
+        tabBarInactiveTintColor: "#1F1F1F",
+        headerShown: true,
+        header: () => <AppHeader />,
       }}
     >
       <Tabs.Screen

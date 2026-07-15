@@ -1,6 +1,8 @@
 import { getTopHeadlines } from "@/api/newsApi";
 import NewsCard from "@/components/NewsCard";
 import { Pagination } from "@/components/Pagination";
+import { useSort } from "@/context/SortContext";
+import { sortArticles } from "@/utils/sortArticles";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +17,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const CATEGORIES = [
-  { id: "all", label: "Hepsi" },
+  { id: "all", label: "Tüm" },
   { id: "business", label: "Ekonomi" },
   { id: "technology", label: "Teknoloji" },
   { id: "sports", label: "Spor" },
@@ -57,7 +59,9 @@ export default function NewsScreen() {
     },
   });
 
-  const articles = data?.articles ?? [];
+  const { sortOption } = useSort();
+
+  const articles = sortArticles(data?.articles ?? [], sortOption);
   const totalResults = data?.totalResults ?? 0;
 
   useEffect(() => {
@@ -84,8 +88,8 @@ export default function NewsScreen() {
     <SafeAreaView className="flex-1 bg-background">
       <View className="mx-4 my-3 relative justify-center">
         <TextInput
-          className="news-search-input pl-10 pr-4 py-2.5 rounded-xl bg-gray-100 text-black"
-          placeholder="Manşetlerde arayın..."
+          className="news-search-input pl-10 pr-4 py-2.5"
+          placeholder="Haberlerde arayın..."
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           clearButtonMode="while-editing"
@@ -108,13 +112,13 @@ export default function NewsScreen() {
               <TouchableOpacity
                 onPress={() => handleCategoryPress(item.id)}
                 className={`mr-2 px-4 py-2 rounded-full ${
-                  isSelected ? "bg-primary" : "bg-gray-100"
+                  isSelected ? "bg-accent" : "bg-surface border border-border"
                 }`}
                 activeOpacity={0.7}
               >
                 <Text
                   className={`font-semibold text-xs ${
-                    isSelected ? "text-white" : "text-gray-600"
+                    isSelected ? "text-white" : "text-primary"
                   }`}
                 >
                   {item.label}
@@ -128,12 +132,12 @@ export default function NewsScreen() {
       <Text className="text-primary text-xl font-semibold px-4 py-2">
         {debouncedQuery
           ? `"${debouncedQuery}" Arama Sonuçları`
-          : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Manşetleri`}
+          : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Haberleri`}
       </Text>
 
       {isLoading || isFetching ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color="#1E5F8C" />
+          <ActivityIndicator size="large" color="#1B1B1E" />
           {isFetching && (
             <Text className="text-muted text-xs mt-2">Yükleniyor...</Text>
           )}
