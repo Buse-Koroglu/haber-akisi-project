@@ -1,6 +1,12 @@
 import { Article } from "@/api/newsApi";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Webview from "react-native-webview";
 
@@ -18,7 +24,11 @@ const webview = () => {
           className="webview-back-button"
           onPress={() => router.back()}
         >
-          <Text className="text-white font-semibold">Geri Dön</Text>
+          <Image
+            source={require("@/assets/images/back-button.png")}
+            style={{ width: 24, height: 24 }}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
       <Webview

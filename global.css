@@ -177,4 +177,64 @@
   .sort-modal-option-text-active {
     @apply text-accent font-bold;
   }
+
+  .news-detail-header {
+    @apply px-4 pt-4 pb-2;
+  }
+
+  .news-detail-meta-row {
+    @apply flex-row items-center mb-3;
+  }
+
+  .news-detail-source-badge {
+    @apply bg-opinionBg px-3 py-1 rounded-full mr-2;
+  }
+
+  .news-detail-source-badge-text {
+    @apply text-xs font-bold uppercase tracking-wide text-primary;
+  }
+
+  .news-detail-date {
+    @apply text-xs font-medium text-muted;
+  }
+
+  .news-detail-title {
+    @apply text-2xl font-bold text-primary leading-snug mb-4 px-4;
+  }
+
+  .news-detail-image-wrap {
+    @apply mx-4 mb-5 rounded-3xl overflow-hidden bg-background shadow-sm;
+  }
+
+  .news-detail-image {
+    @apply w-full h-56;
+  }
+
+  .news-detail-description {
+    @apply text-base font-medium text-primary italic leading-relaxed mb-5 px-4;
+  }
+
+  .news-detail-card {
+    @apply bg-surface rounded-3xl mx-4 mb-6 p-4 border border-divider;
+  }
+
+  .news-detail-section-title {
+    @apply text-lg font-bold text-primary mb-2;
+  }
+
+  .news-detail-section-content {
+    @apply text-base font-normal text-muted leading-relaxed;
+  }
+
+  .news-detail-actions {
+    @apply px-4 pb-8 gap-3;
+  }
+
+  .news-detail-source-button {
+    @apply bg-accent w-full py-4 rounded-2xl flex-row justify-center items-center gap-2;
+  }
+
+  .news-detail-source-button-text {
+    @apply text-white text-sm font-semibold;
+  }
 }
