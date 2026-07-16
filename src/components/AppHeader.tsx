@@ -3,13 +3,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   Alert,
-  Platform,
-  Text,
   TouchableOpacity,
   View,
   Image,
   Share,
 } from "react-native";
+import { AppText as Text } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SortModal } from "./SortModal";
 import { useLocalSearchParams, useRouter, useSegments } from "expo-router";
@@ -55,10 +54,7 @@ export const AppHeader = () => {
           />
         </TouchableOpacity>
 
-        <Text
-          className="app-header-logo"
-          style={{ fontFamily: Platform.OS === "ios" ? "Georgia" : "serif" }}
-        >
+        <Text className="app-header-logo">
           Odak<Text className="app-header-logo-dot">.</Text>
         </Text>
         <View className="app-header-icon-wrap">

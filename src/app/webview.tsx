@@ -2,11 +2,11 @@ import { Article } from "@/api/newsApi";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   ActivityIndicator,
-  Text,
   TouchableOpacity,
   View,
   Image,
 } from "react-native";
+import { AppText as Text } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Webview from "react-native-webview";
 

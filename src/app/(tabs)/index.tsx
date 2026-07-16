@@ -9,11 +9,13 @@ import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import {
+  AppText as Text,
+  AppTextInput as TextInput,
+} from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native";
 
@@ -174,7 +176,9 @@ export default function NewsScreen() {
         />
       </View>
 
-      <Text className="text-primary text-xl font-semibold px-4 py-2">
+      <Text
+        className="text-primary text-xl font-semibold px-4 py-2"
+      >
         {debouncedQuery
           ? `"${debouncedQuery}" Arama Sonuçları`
           : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Haberleri`}

@@ -2,7 +2,8 @@ import NewsCard from "@/components/NewsCard";
 import { useFavorites } from "@/context/FavoritesContext";
 import { useSort } from "@/context/SortContext";
 import { sortArticles } from "@/utils/sortArticles";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
+import { AppText as Text } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const favorites = () => {

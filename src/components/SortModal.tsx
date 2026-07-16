@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Modal, Pressable, TouchableOpacity, View } from "react-native";
+import { AppText as Text } from "@/components/ui/AppText";
 import { SortOption, useSort } from "@/context/SortContext";
 
 interface SortModalProps {
