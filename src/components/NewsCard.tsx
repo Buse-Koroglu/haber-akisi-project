@@ -1,4 +1,3 @@
-import { Article } from "@/api/newsApi";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Ionicons } from "@expo/vector-icons";
 import { format } from "date-fns";
@@ -6,6 +5,7 @@ import { tr } from "date-fns/locale";
 import { useRouter } from "expo-router";
 import { Image, TouchableOpacity, View } from "react-native";
 import { AppText as Text } from "@/components/ui/AppText";
+import { Article } from "../../type";
 
 const NewsCard = ({ article }: { article: Article }) => {
   const { source, title, description, urlToImage, publishedAt } = article;

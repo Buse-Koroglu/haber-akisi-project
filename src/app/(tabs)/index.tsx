@@ -176,9 +176,7 @@ export default function NewsScreen() {
         />
       </View>
 
-      <Text
-        className="text-primary text-xl font-semibold px-4 py-2"
-      >
+      <Text className="text-primary text-xl font-semibold px-4 py-2">
         {debouncedQuery
           ? `"${debouncedQuery}" Arama Sonuçları`
           : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Haberleri`}

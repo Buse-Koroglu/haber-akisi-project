@@ -1,34 +1,7 @@
+import { Article, topHeadlinesParams } from "../../type";
+
 const BASE_URL = process.env.EXPO_PUBLIC_NEWS_API_BASE_URL;
 const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
-
-export interface topHeadlinesParams {
-  country?: string;
-  category?:
-    | "business"
-    | "entertainment"
-    | "general"
-    | "health"
-    | "science"
-    | "sports"
-    | "technology";
-  page?: number;
-  pageSize?: number;
-  q?: string;
-}
-
-export interface Article {
-  source: {
-    id: string | null;
-    name: string;
-  };
-  author: string | null;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string;
-  content: string | null;
-}
 
 export async function getTopHeadlines({
   q: q,

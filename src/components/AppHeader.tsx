@@ -1,17 +1,11 @@
-import { Article } from "@/api/newsApi";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import {
-  Alert,
-  TouchableOpacity,
-  View,
-  Image,
-  Share,
-} from "react-native";
+import { Alert, TouchableOpacity, View, Image, Share } from "react-native";
 import { AppText as Text } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SortModal } from "./SortModal";
 import { useLocalSearchParams, useRouter, useSegments } from "expo-router";
+import { Article } from "../../type";
 
 export const AppHeader = () => {
   const [isSortModalVisible, setIsSortModalVisible] = useState(false);

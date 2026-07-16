@@ -1,6 +1,6 @@
-import { Article } from "@/api/newsApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useEffect, useState } from "react";
+import { Article, FavoriteContextType } from "../../type";
 
 const FavoriteContext = createContext<FavoriteContextType | undefined>(
   undefined,

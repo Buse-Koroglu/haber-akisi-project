@@ -1,5 +1,5 @@
-import { Article } from "@/api/newsApi";
 import { SortOption } from "@/context/SortContext";
+import { Article } from "../../type";
 
 export const sortArticles = (
   articles: Article[],
