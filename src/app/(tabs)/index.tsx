@@ -4,7 +4,7 @@ import { Pagination } from "@/components/Pagination";
 import { useSort } from "@/context/SortContext";
 import { sortArticles } from "@/utils/sortArticles";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { RefreshControl } from "react-native";
 
 const CATEGORIES = [
   { id: "all", label: "Tüm" },
@@ -31,9 +32,53 @@ export default function NewsScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
   const flatListRef = useRef<FlatList>(null);
   const PAGE_SIZE = 10;
+  const queryClient = useQueryClient();
+
+  const firstPageQueryKey = ["news", debouncedQuery, selectedCategory, 1];
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      const freshResult = await getTopHeadlines({
+        country: "us",
+        category:
+          selectedCategory === "all" ? undefined : (selectedCategory as any),
+        page: 1,
+        pageSize: PAGE_SIZE,
+        q: debouncedQuery || undefined,
+      });
+
+      const cachedFirstPage =
+        queryClient.getQueryData<typeof freshResult>(firstPageQueryKey);
+      const knownUrls = new Set(
+        (cachedFirstPage?.articles ?? []).map((a) => a.url),
+      );
+      const newArticles = freshResult.articles.filter(
+        (a) => !knownUrls.has(a.url),
+      );
+
+      if (newArticles.length > 0 && cachedFirstPage) {
+        queryClient.setQueryData(firstPageQueryKey, {
+          ...cachedFirstPage,
+          articles: [...newArticles, ...cachedFirstPage.articles],
+          totalResults: freshResult.totalResults,
+        });
+      } else {
+        queryClient.setQueryData(firstPageQueryKey, freshResult);
+      }
+
+      if (currentPage !== 1) {
+        setCurrentPage(1);
+      }
+      flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -164,6 +209,13 @@ export default function NewsScreen() {
             data={articles}
             keyExtractor={(item, index) => `${item.url}-${index}`}
             renderItem={({ item }) => <NewsCard article={item} />}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={onRefresh}
+                colors={["#007AFF"]}
+              />
+            }
             contentContainerStyle={{ paddingBottom: 16 }}
           />
 
