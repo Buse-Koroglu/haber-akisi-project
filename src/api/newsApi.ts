@@ -1,4 +1,12 @@
 import { Article, topHeadlinesParams } from "../../type";
+import { NewsApiError } from "./errors";
+import { TopHeadlinesSchema } from "./schemas";
+
+if (!process.env.EXPO_PUBLIC_NEWS_API_BASE_URL) {
+  throw new Error(
+    "EXPO_PUBLIC_NEWS_API_BASE_URL environment variable is not defined",
+  );
+}
 
 const BASE_URL = process.env.EXPO_PUBLIC_NEWS_API_BASE_URL;
 
@@ -25,13 +33,23 @@ export async function getTopHeadlines({
   );
 
   if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`Failed to fetch top headlines: ${errorBody}`);
+    let message = `HTTP ${response.status}`;
+    try {
+      const errorBody = await response.json();
+      message = errorBody.message ?? message;
+    } catch {}
+    throw new NewsApiError(message, response.status);
   }
 
   const data = await response.json();
+
+  const parsed = TopHeadlinesSchema.safeParse(data);
+  if (!parsed.success) {
+    throw new NewsApiError("Unexpected API response format.", 500);
+  }
+
   return {
-    articles: data.articles ?? [],
-    totalResults: data.totalResults ?? 0,
+    articles: parsed.data.articles,
+    totalResults: parsed.data.totalResults,
   };
 }
