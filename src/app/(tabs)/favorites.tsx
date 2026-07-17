@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { useEffect, useRef, useState } from "react";
 import { Pagination } from "@/components/Pagination";
+import { useColorScheme } from "nativewind";
 
 const favorites = () => {
   const { favorites } = useFavorites();
@@ -20,6 +21,9 @@ const favorites = () => {
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   const flatListRef = useRef<FlatList>(null);
   const PAGE_SIZE = 10;
@@ -64,11 +68,12 @@ const favorites = () => {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background dark:bg-darkBackground">
       <View className="mx-4 my-3 relative justify-center">
         <TextInput
           className="news-search-input pl-10 pr-4 py-2.5"
           placeholder="Favorilerde arayın..."
+          placeholderTextColor={isDark ? "#9CA3AF" : "#6B7280"}
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           maxLength={50}
@@ -78,13 +83,13 @@ const favorites = () => {
           <Ionicons name="search" size={20} color="gray" />
         </View>
       </View>
-      <Text className="text-primary text-xl font-semibold px-4 py-3">
+      <Text className="text-primary dark:text-darkPrimary text-xl font-semibold px-4 py-3">
         Favoriler
       </Text>
 
       {filteredFavorites.length === 0 ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-gray-500 text-lg">
+          <Text className="text-gray-500 dark:text-darkMuted text-lg">
             {debouncedQuery
               ? "Aramanızla eşleşen favori bulunamadı."
               : "Henüz favori eklenmedi."}

@@ -1,11 +1,11 @@
-import { Article, topHeadlinesParams } from "../../type";
+import { Article, topHeadlinesParams } from "../../../type";
 
 const BASE_URL = process.env.EXPO_PUBLIC_NEWS_API_BASE_URL;
 const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
 
 export async function getTopHeadlines({
-  q: q,
-  country = "tr",
+  q: keyword,
+  country = "us",
   category,
   page = 1,
   pageSize = 10,
@@ -20,7 +20,7 @@ export async function getTopHeadlines({
     apiKey: API_KEY || "",
   });
   if (category) params.set("category", category);
-  if (q) params.set("q", q);
+  if (keyword) params.set("q", keyword);
 
   const response = await fetch(
     `${BASE_URL}/top-headlines?${params.toString()}`,
@@ -28,8 +28,6 @@ export async function getTopHeadlines({
 
   if (!response.ok) {
     const errorBody = await response.text();
-    console.log("STATUS:", response.status);
-    console.log("BODY:", errorBody);
     throw new Error(`Failed to fetch top headlines: ${errorBody}`);
   }
 

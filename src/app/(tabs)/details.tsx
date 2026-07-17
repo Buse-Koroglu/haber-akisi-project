@@ -7,6 +7,9 @@ import { Article } from "../../../type";
 
 const newsDetails = () => {
   const { article } = useLocalSearchParams<{ article: string }>();
+  {
+    /* article parametresini direkt object olarak useLocalSearchParams'tan alarak kullanılmaz o yüzden article içerisinde bulunna paramtrelerden string olarak gerekli parametreler çekilir.  */
+  }
   const parsedArticle: Article | null = article ? JSON.parse(article) : null;
   const router = useRouter();
 
@@ -25,8 +28,9 @@ const newsDetails = () => {
       })
     : null;
 
+  /* Haber detay sayfası, her bir haber için aşağıda bulunan SafeAreaView component'ini döndürür.İçerisinde haberin başlığı, kaynağı, tarihi ve kısa açıklaması gibi bilgiler yer alır. */
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background dark:bg-darkBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="news-detail-header">
           <View className="news-detail-meta-row">

@@ -5,7 +5,11 @@ import { AppText as Text } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SortModal } from "./SortModal";
 import { useLocalSearchParams, useRouter, useSegments } from "expo-router";
+import { useColorScheme } from "nativewind";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { APP_THEME } from "@/constants/theme";
 import { Article } from "../../type";
+import { is } from "date-fns/locale";
 
 export const AppHeader = () => {
   const [isSortModalVisible, setIsSortModalVisible] = useState(false);
@@ -13,6 +17,15 @@ export const AppHeader = () => {
   const segments = useSegments();
   const isDetailsScreen = segments[segments.length - 1] === "details";
   const { article } = useLocalSearchParams<{ article: string }>();
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const iconColor = colorScheme === "dark" ? "#F2F2F0" : "#1F1F1F";
+  const isDark = colorScheme === "dark";
+
+  const handleThemeToggle = () => {
+    const nextScheme = colorScheme === "dark" ? "light" : "dark";
+    setColorScheme(nextScheme);
+    AsyncStorage.setItem(APP_THEME, nextScheme);
+  };
 
   const handleSortPress = () => {
     setIsSortModalVisible(true);
@@ -38,7 +51,10 @@ export const AppHeader = () => {
     }
   };
   return (
-    <SafeAreaView edges={["top"]} className="bg-background">
+    <SafeAreaView
+      edges={["top"]}
+      className="bg-background dark:bg-darkBackground"
+    >
       <View className="app-header">
         <TouchableOpacity onPress={() => router.push("/")}>
           <Image
@@ -51,18 +67,34 @@ export const AppHeader = () => {
         <Text className="app-header-logo">
           Odak<Text className="app-header-logo-dot">.</Text>
         </Text>
-        <View className="app-header-icon-wrap">
+        <View className="app-header-icon-wrap flex-row items-center gap-4">
+          <TouchableOpacity onPress={handleThemeToggle}>
+            <Ionicons
+              name={colorScheme === "dark" ? "sunny-outline" : "moon-outline"}
+              size={22}
+              color={iconColor}
+            />
+          </TouchableOpacity>
+
           {isDetailsScreen ? (
             <TouchableOpacity onPress={handleShare}>
-              <Image
-                source={require("@/assets/images/share-removebg-preview.png")}
-                style={{ width: 24, height: 24 }}
-                resizeMode="contain"
-              />
+              {isDark ? (
+                <Image
+                  source={require("@/assets/images/light_share.png")}
+                  style={{ width: 24, height: 24 }}
+                  resizeMode="contain"
+                />
+              ) : (
+                <Image
+                  source={require("@/assets/images/dark_share.png")}
+                  style={{ width: 24, height: 24 }}
+                  resizeMode="contain"
+                />
+              )}
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={handleSortPress}>
-              <Ionicons name="options-outline" size={24} color="#1F1F1F" />
+              <Ionicons name="options-outline" size={24} color={iconColor} />
             </TouchableOpacity>
           )}
         </View>

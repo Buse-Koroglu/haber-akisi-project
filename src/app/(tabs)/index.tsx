@@ -1,4 +1,4 @@
-import { getTopHeadlines } from "@/api/newsApi";
+import { getTopHeadlines } from "@/app/api/newsApi";
 import NewsCard from "@/components/NewsCard";
 import { Pagination } from "@/components/Pagination";
 import { useSort } from "@/context/SortContext";
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native";
+import { useColorScheme } from "nativewind";
 
 const CATEGORIES = [
   { id: "all", label: "Tüm" },
@@ -39,6 +40,8 @@ export default function NewsScreen() {
   const flatListRef = useRef<FlatList>(null);
   const PAGE_SIZE = 10;
   const queryClient = useQueryClient();
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   const firstPageQueryKey = ["news", debouncedQuery, selectedCategory, 1];
 
@@ -132,11 +135,12 @@ export default function NewsScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background dark:bg-darkBackground">
       <View className="mx-4 my-3 relative justify-center">
         <TextInput
           className="news-search-input pl-10 pr-4 py-2.5"
           placeholder="Haberlerde arayın..."
+          placeholderTextColor={isDark ? "#9CA3AF" : "#6B7280"}
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           maxLength={50}
@@ -161,13 +165,17 @@ export default function NewsScreen() {
               <TouchableOpacity
                 onPress={() => handleCategoryPress(item.id)}
                 className={`mr-2 px-4 py-2 rounded-full ${
-                  isSelected ? "bg-accent" : "bg-surface border border-border"
+                  isSelected
+                    ? "bg-darkAccent dark:bg-darkAccent"
+                    : "bg-surface dark:bg-darkSurface border border-border dark:border-darkBorder"
                 }`}
                 activeOpacity={0.7}
               >
                 <Text
                   className={`font-semibold text-xs ${
-                    isSelected ? "text-white" : "text-primary"
+                    isSelected
+                      ? "text-darkDivider dark:text-darkPrimary"
+                      : "text-darkDivider dark:text-darkPrimary"
                   }`}
                 >
                   {item.label}
@@ -178,7 +186,7 @@ export default function NewsScreen() {
         />
       </View>
 
-      <Text className="text-primary text-xl font-semibold px-4 py-2">
+      <Text className="text-primary dark:text-darkPrimary text-xl font-semibold px-4 py-2">
         {debouncedQuery
           ? `"${debouncedQuery}" Arama Sonuçları`
           : `${CATEGORIES.find((c) => c.id === selectedCategory)?.label} Haberleri`}
@@ -186,23 +194,28 @@ export default function NewsScreen() {
 
       {isLoading || isFetching ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color="#1B1B1E" />
+          <ActivityIndicator
+            size="large"
+            color={isDark ? "#F2B705" : "#1B1B1E"}
+          />
           {isFetching && (
-            <Text className="text-muted text-xs mt-2">Yükleniyor...</Text>
+            <Text className="text-muted dark:text-darkMuted text-xs mt-2">
+              Yükleniyor...
+            </Text>
           )}
         </View>
       ) : isError ? (
         <View className="flex-1 items-center justify-center px-8">
-          <Text className="text-primary text-base font-semibold text-center mb-1">
+          <Text className="text-primary dark:text-darkPrimary text-base font-semibold text-center mb-1">
             Haberler yüklenemedi
           </Text>
-          <Text className="text-muted text-sm text-center">
+          <Text className="text-muted dark:text-darkMuted text-sm text-center">
             {(error as Error)?.message ?? "Bir hata oluştu."}
           </Text>
         </View>
       ) : articles.length === 0 ? (
         <View className="flex-1 items-center justify-center px-8">
-          <Text className="text-muted text-sm text-center">
+          <Text className="text-muted dark:text-darkMuted text-sm text-center">
             Aramanızla eşleşen haber bulunamadı.
           </Text>
         </View>

@@ -4,19 +4,19 @@
 
 @layer components {
   .news-card {
-    @apply bg-surface rounded-3xl overflow-hidden mx-4 mb-3 shadow-sm;
+    @apply bg-surface dark:bg-darkSurface rounded-3xl overflow-hidden mx-4 mb-3 shadow-sm;
   }
 
   .news-card-image {
-    @apply h-24 w-24 rounded-2xl bg-background;
+    @apply h-24 w-24 rounded-2xl bg-background dark:bg-darkBackground;
   }
 
   .news-detail-image {
-    @apply w-10/12 h-64 rounded-2xl bg-background m-auto mb-4;
+    @apply w-10/12 h-64 rounded-2xl bg-background dark:bg-darkBackground m-auto mb-4;
   }
 
   .news-card-source-button {
-    @apply bg-accent w-1/2 m-auto text-white text-xs font-semibold py-3 rounded-full flex border border-accent justify-center items-center;
+    @apply bg-accent dark:bg-darkAccent w-1/2 m-auto text-white text-xs font-semibold py-3 rounded-full flex border border-accent dark:border-darkAccent justify-center items-center;
   }
 
   .news-card-body {
@@ -24,45 +24,37 @@
   }
 
   .news-card-source {
-    @apply text-xs font-medium text-muted uppercase tracking-wide mb-1;
+    @apply text-xs font-medium text-muted dark:text-darkMuted uppercase tracking-wide mb-1;
   }
 
   .news-card-title {
-    @apply text-base font-bold text-primary leading-tight mb-1;
+    @apply text-base font-bold text-primary dark:text-darkPrimary leading-tight mb-1;
   }
 
   .news-card-desc {
-    @apply text-sm font-normal text-muted leading-snug;
+    @apply text-sm font-normal text-muted dark:text-darkMuted leading-snug;
   }
 
   .news-card-meta {
-    @apply text-xs font-normal text-muted mt-2;
+    @apply text-xs font-normal text-muted dark:text-darkMuted mt-2;
   }
 
   .news-card-opinion-tag {
-    @apply bg-opinionBg text-opinionText text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1;
-  }
-
-  .news-detail-section-title {
-    @apply text-2xl font-bold text-primary mb-2 px-4;
-  }
-
-  .news-detail-section-content {
-    @apply text-base font-normal text-primary mb-4 px-4;
+    @apply bg-opinionBg dark:bg-darkOpinionBg text-opinionText dark:text-darkOpinionText text-xs font-semibold px-2 py-0.5 rounded-full self-start mb-1;
   }
 
   .news-card-accent-bar {
     @apply h-1 w-10 rounded-full bg-brand mb-2;
   }
   .news-search-input {
-    @apply h-[45px] bg-surface rounded-2xl px-3 text-base text-primary border border-border;
+    @apply h-[45px] bg-surface dark:bg-darkSurface rounded-2xl px-3 text-base text-primary dark:text-darkPrimary border border-border dark:border-darkBorder;
   }
 
   .news-search-input:focus {
-    @apply outline-none border-accent;
+    @apply outline-none border-accent dark:border-darkAccent;
   }
   .news-search-icon {
-    @apply absolute right-8 top-1/2 -translate-y-1/2 text-muted;
+    @apply absolute right-8 top-1/2 -translate-y-1/2 text-muted dark:text-darkMuted;
   }
 
   .webview-back-button {
@@ -73,61 +65,61 @@
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .webview-loading-text {
-    @apply text-base font-normal text-primary mt-2;
+    @apply text-base font-normal text-primary dark:text-darkPrimary mt-2;
   }
   .webview-header {
     @apply w-full h-14 bg-accent flex-row items-center px-4;
   }
   .pagination-container {
-    @apply flex-row justify-center items-center gap-3 py-3 border-t border-divider bg-background;
+    @apply flex-row justify-center items-center gap-3 py-3 border-t border-divider dark:border-darkDivider bg-background dark:bg-darkBackground;
   }
 
   .pagination-nav-button {
-    @apply w-24 py-1.5 rounded-full bg-surface border border-border justify-center items-center;
+    @apply w-24 py-1.5 rounded-full bg-surface dark:bg-darkSurface border border-border dark:border-darkBorder justify-center items-center;
   }
 
   .pagination-nav-button-text {
-    @apply text-accent font-semibold text-xs;
+    @apply text-accent dark:text-darkAccent font-semibold text-xs;
   }
 
   .pagination-disabled-text {
-    @apply text-muted;
+    @apply text-muted dark:text-darkMuted;
   }
 
   .pagination-current-page-text {
-    @apply text-sm text-primary font-semibold;
+    @apply text-sm text-primary dark:text-darkPrimary font-semibold;
   }
 
   .tab-pill-active {
-    @apply bg-accent px-4 py-2 rounded-full;
+    @apply bg-accent dark:bg-darkAccent px-4 py-2 rounded-full;
   }
 
   .tab-pill-inactive {
-    @apply bg-surface border border-border px-4 py-2 rounded-full;
+    @apply bg-surface dark:bg-darkSurface border border-border dark:border-darkBorder px-4 py-2 rounded-full;
   }
 
   .info-box {
-    @apply bg-infoBox rounded-2xl p-4;
+    @apply bg-infoBox dark:bg-darkInfoBox rounded-2xl p-4;
   }
 
   .info-box-title {
-    @apply text-primary font-bold text-[15px] mb-1;
+    @apply text-primary dark:text-darkPrimary font-bold text-[15px] mb-1;
   }
 
   .info-box-desc {
-    @apply text-muted text-[13px] leading-[1.4];
+    @apply text-muted dark:text-darkMuted text-[13px] leading-[1.4];
   }
 
   .info-box-link {
-    @apply text-link font-medium text-sm;
+    @apply text-link dark:text-darkLink font-medium text-sm;
   }
 
   .info-box-dismiss {
-    @apply text-muted font-medium text-sm;
+    @apply text-muted dark:text-darkMuted font-medium text-sm;
   }
 
   .app-header {
-    @apply flex-row items-center justify-between bg-background px-4 pt-1 mt-4;
+    @apply flex-row items-center justify-between bg-background dark:bg-darkBackground px-4 pt-1 mt-4;
   }
 
   .app-header-icon-wrap {
@@ -135,7 +127,7 @@
   }
 
   .app-header-badge {
-    @apply absolute -top-1.5 -right-2 bg-accent rounded-full w-4 h-4 items-center justify-center;
+    @apply absolute -top-1.5 -right-2 bg-accent dark:bg-darkAccent rounded-full w-4 h-4 items-center justify-center;
   }
 
   .app-header-badge-text {
@@ -143,7 +135,7 @@
   }
 
   .app-header-logo {
-    @apply text-primary text-[22px] font-bold;
+    @apply text-primary dark:text-darkPrimary text-[22px] font-bold;
   }
 
   .app-header-logo-dot {
@@ -155,11 +147,11 @@
   }
 
   .sort-modal-content {
-    @apply bg-surface rounded-2xl w-full p-4;
+    @apply bg-surface dark:bg-darkSurface rounded-2xl w-full p-4;
   }
 
   .sort-modal-title {
-    @apply text-primary text-lg font-bold mb-3;
+    @apply text-primary dark:text-darkPrimary text-lg font-bold mb-3;
   }
 
   .sort-modal-option {
@@ -167,15 +159,15 @@
   }
 
   .sort-modal-option-active {
-    @apply bg-background;
+    @apply bg-background dark:bg-darkBackground;
   }
 
   .sort-modal-option-text {
-    @apply text-primary text-sm font-medium;
+    @apply text-primary dark:text-darkPrimary text-sm font-medium;
   }
 
   .sort-modal-option-text-active {
-    @apply text-accent font-bold;
+    @apply text-accent dark:text-darkAccent font-bold;
   }
 
   .news-detail-header {
@@ -187,43 +179,39 @@
   }
 
   .news-detail-source-badge {
-    @apply bg-opinionBg px-3 py-1 rounded-full mr-2;
+    @apply bg-opinionBg dark:bg-darkOpinionBg px-3 py-1 rounded-full mr-2;
   }
 
   .news-detail-source-badge-text {
-    @apply text-xs font-bold uppercase tracking-wide text-primary;
+    @apply text-xs font-bold uppercase tracking-wide text-primary dark:text-darkPrimary;
   }
 
   .news-detail-date {
-    @apply text-xs font-medium text-muted;
+    @apply text-xs font-medium text-muted dark:text-darkMuted;
   }
 
   .news-detail-title {
-    @apply text-2xl font-bold text-primary leading-snug mb-4 px-4;
+    @apply text-2xl font-bold text-primary dark:text-darkPrimary leading-snug mb-4 px-4;
   }
 
   .news-detail-image-wrap {
-    @apply mx-4 mb-5 rounded-3xl overflow-hidden bg-background shadow-sm;
-  }
-
-  .news-detail-image {
-    @apply w-full h-56;
+    @apply mx-4 mb-5 rounded-3xl overflow-hidden bg-background dark:bg-darkBackground shadow-sm;
   }
 
   .news-detail-description {
-    @apply text-base font-medium text-primary italic leading-relaxed mb-5 px-4;
+    @apply text-base font-medium text-primary dark:text-darkPrimary italic leading-relaxed mb-5 px-4;
   }
 
   .news-detail-card {
-    @apply bg-surface rounded-3xl mx-4 mb-6 p-4 border border-divider;
+    @apply bg-surface dark:bg-darkSurface rounded-3xl mx-4 mb-6 p-4 border border-divider dark:border-darkDivider;
   }
 
   .news-detail-section-title {
-    @apply text-lg font-bold text-primary mb-2;
+    @apply text-lg font-bold text-primary dark:text-darkPrimary mb-2;
   }
 
   .news-detail-section-content {
-    @apply text-base font-normal text-muted leading-relaxed;
+    @apply text-base font-normal text-muted dark:text-darkMuted leading-relaxed;
   }
 
   .news-detail-actions {
@@ -231,7 +219,7 @@
   }
 
   .news-detail-source-button {
-    @apply bg-accent w-full py-4 rounded-2xl flex-row justify-center items-center gap-2;
+    @apply bg-accent dark:bg-darkAccent w-full py-4 rounded-2xl flex-row justify-center items-center gap-2;
   }
 
   .news-detail-source-button-text {

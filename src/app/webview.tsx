@@ -13,7 +13,7 @@ const webview = () => {
   if (!parsedArticle?.url) return null;
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background dark:bg-darkBackground">
       <View className="webview-header">
         <TouchableOpacity
           className="webview-back-button"

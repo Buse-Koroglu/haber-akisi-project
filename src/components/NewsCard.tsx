@@ -5,12 +5,15 @@ import { tr } from "date-fns/locale";
 import { useRouter } from "expo-router";
 import { Image, TouchableOpacity, View } from "react-native";
 import { AppText as Text } from "@/components/ui/AppText";
+import { useColorScheme } from "nativewind";
 import { Article } from "../../type";
 
 const NewsCard = ({ article }: { article: Article }) => {
   const { source, title, description, urlToImage, publishedAt } = article;
   const { toggleFavorite, isFavorite } = useFavorites();
   const router = useRouter();
+  const { colorScheme } = useColorScheme();
+  const mutedColor = colorScheme === "dark" ? "#A0A09A" : "#6B6B66";
 
   const handlePress = () => {
     router.push({
@@ -46,7 +49,7 @@ const NewsCard = ({ article }: { article: Article }) => {
                 <Ionicons
                   name={isFavorite(article.url) ? "star" : "star-outline"}
                   size={20}
-                  color={isFavorite(article.url) ? "#F2B705" : "#6B6B66"}
+                  color={isFavorite(article.url) ? "#F2B705" : mutedColor}
                 />
               </TouchableOpacity>
             </View>
