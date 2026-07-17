@@ -1,7 +1,6 @@
-import { Article, topHeadlinesParams } from "../../../type";
+import { Article, topHeadlinesParams } from "../../type";
 
 const BASE_URL = process.env.EXPO_PUBLIC_NEWS_API_BASE_URL;
-const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
 
 export async function getTopHeadlines({
   q: keyword,
@@ -17,7 +16,6 @@ export async function getTopHeadlines({
     country,
     page: page.toString(),
     pageSize: pageSize.toString(),
-    apiKey: API_KEY || "",
   });
   if (category) params.set("category", category);
   if (keyword) params.set("q", keyword);

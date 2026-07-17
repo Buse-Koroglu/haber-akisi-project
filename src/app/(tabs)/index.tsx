@@ -1,4 +1,3 @@
-import { getTopHeadlines } from "@/app/api/newsApi";
 import NewsCard from "@/components/NewsCard";
 import { Pagination } from "@/components/Pagination";
 import { useSort } from "@/context/SortContext";
@@ -19,6 +18,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native";
 import { useColorScheme } from "nativewind";
+import { getTopHeadlines } from "@/api/newsApi";
 
 const CATEGORIES = [
   { id: "all", label: "Tüm" },
