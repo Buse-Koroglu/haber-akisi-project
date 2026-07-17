@@ -47,7 +47,14 @@
     "typescript": "~6.0.3"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./jest.setup.js"
+    ],
+    "moduleNameMapper": {
+      "^@/assets/(.*)$": "<rootDir>/assets/$1",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "scripts": {
     "start": "expo start",
