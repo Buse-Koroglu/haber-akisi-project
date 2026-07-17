@@ -3,27 +3,65 @@ import { useFavorites } from "@/context/FavoritesContext";
 import { useSort } from "@/context/SortContext";
 import { sortArticles } from "@/utils/sortArticles";
 import { FlatList, View } from "react-native";
-import { AppText as Text } from "@/components/ui/AppText";
+import {
+  AppText as Text,
+  AppTextInput as TextInput,
+} from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { useEffect, useState } from "react";
 
 const favorites = () => {
   const { favorites } = useFavorites();
   const { sortOption } = useSort();
   const sortedFavorites = sortArticles(favorites, sortOption);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedQuery, setDebouncedQuery] = useState<string>("");
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      setDebouncedQuery(searchQuery.trim());
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery]);
+
+  const filteredFavorites = debouncedQuery
+    ? sortedFavorites.filter((item) =>
+        item.title?.toLowerCase().includes(debouncedQuery.toLowerCase()),
+      )
+    : sortedFavorites;
 
   return (
     <SafeAreaView className="flex-1 bg-background">
+      <View className="mx-4 my-3 relative justify-center">
+        <TextInput
+          className="news-search-input pl-10 pr-4 py-2.5"
+          placeholder="Favorilerde arayın..."
+          value={searchQuery}
+          onChangeText={(text) => setSearchQuery(text)}
+          maxLength={50}
+          clearButtonMode="while-editing"
+        />
+        <View className="absolute left-3">
+          <Ionicons name="search" size={20} color="gray" />
+        </View>
+      </View>
       <Text className="text-primary text-xl font-semibold px-4 py-3">
         Favoriler
       </Text>
 
-      {sortedFavorites.length === 0 ? (
+      {filteredFavorites.length === 0 ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-gray-500 text-lg">Henüz favori eklenmedi.</Text>
+          <Text className="text-gray-500 text-lg">
+            {debouncedQuery
+              ? "Aramanızla eşleşen favori bulunamadı."
+              : "Henüz favori eklenmedi."}
+          </Text>
         </View>
       ) : (
         <FlatList
-          data={sortedFavorites}
+          data={filteredFavorites}
           keyExtractor={(item) => item.url}
           renderItem={({ item }) => <NewsCard article={item} />}
           contentContainerStyle={{ paddingBottom: 16 }}

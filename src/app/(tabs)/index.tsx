@@ -139,6 +139,7 @@ export default function NewsScreen() {
           placeholder="Haberlerde arayın..."
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
+          maxLength={50}
           clearButtonMode="while-editing"
         />
         <View className="absolute left-3">
@@ -152,6 +153,7 @@ export default function NewsScreen() {
           showsHorizontalScrollIndicator={false}
           data={CATEGORIES}
           keyExtractor={(item) => item.id}
+          extraData={selectedCategory}
           contentContainerStyle={{ paddingHorizontal: 16 }}
           renderItem={({ item }) => {
             const isSelected = selectedCategory === item.id;
