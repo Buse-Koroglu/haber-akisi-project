@@ -1,31 +1,39 @@
 import { AppHeader } from "@/components/AppHeader";
+import { colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useColorScheme } from "nativewind";
+import { useMemo } from "react";
 
 export default function TabsLayout() {
   const { colorScheme } = useColorScheme();
   const isDark = colorScheme === "dark";
+  /* screen options useMemo ve isDark dependecy ile verdiğim için şuan sadece tema değişiminde render edilecek. */
+  const screenOptions = useMemo(
+    () => ({
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: isDark
+        ? colors.dark.inactive
+        : colors.light.inactive,
+      tabBarStyle: {
+        backgroundColor: isDark
+          ? colors.dark.background
+          : colors.light.background,
+        borderTopColor: isDark ? colors.dark.border : colors.light.border,
+      },
+      headerShown: true,
+      header: () => <AppHeader />,
+    }),
+    [isDark],
+  );
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: "#F2B705",
-        tabBarInactiveTintColor: isDark ? "#A0A09A" : "#1F1F1F",
-        tabBarStyle: {
-          backgroundColor: isDark ? "#1E1E1E" : "#FFFFFF",
-          borderTopColor: isDark ? "#3A3A36" : "#D8D2C0",
-        },
-        headerShown: true,
-        header: () => (
-          <AppHeader />
-        ) /* AppHeader, her tab'da gösterilecek custom hook */,
-      }}
-    >
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
         name="index"
         options={{
           title: "Haberler",
+          tabBarAccessibilityLabel: "Haberler Sekmesi",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="newspaper-outline" size={size} color={color} />
           ),
@@ -35,6 +43,7 @@ export default function TabsLayout() {
         name="favorites"
         options={{
           title: "Favoriler",
+          tabBarAccessibilityLabel: "Favoriler Sekmesi",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="star-outline" size={size} color={color} />
           ),
