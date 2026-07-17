@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/AppText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Pagination } from "@/components/Pagination";
 
 const favorites = () => {
   const { favorites } = useFavorites();
@@ -17,6 +18,27 @@ const favorites = () => {
   const sortedFavorites = sortArticles(favorites, sortOption);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
+  const flatListRef = useRef<FlatList>(null);
+  const PAGE_SIZE = 10;
+
+  const totalResults = favorites.length;
+
+  useEffect(() => {
+    if (totalResults > 0) {
+      const calculatedPages = Math.ceil(totalResults / PAGE_SIZE);
+      setTotalPages(calculatedPages > 10 ? 10 : calculatedPages);
+    } else {
+      setTotalPages(1);
+    }
+  }, [totalResults]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+  };
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -26,11 +48,20 @@ const favorites = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedQuery]);
+
   const filteredFavorites = debouncedQuery
     ? sortedFavorites.filter((item) =>
         item.title?.toLowerCase().includes(debouncedQuery.toLowerCase()),
       )
     : sortedFavorites;
+
+  const paginatedFavorites = filteredFavorites.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -61,10 +92,19 @@ const favorites = () => {
         </View>
       ) : (
         <FlatList
-          data={filteredFavorites}
+          ref={flatListRef}
+          data={paginatedFavorites}
           keyExtractor={(item) => item.url}
           renderItem={({ item }) => <NewsCard article={item} />}
           contentContainerStyle={{ paddingBottom: 16 }}
+        />
+      )}
+
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
         />
       )}
     </SafeAreaView>
