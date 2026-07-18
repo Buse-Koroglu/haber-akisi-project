@@ -1,11 +1,11 @@
+import { AppText as Text } from "@/components/ui/AppText";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Ionicons } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { useRouter } from "expo-router";
-import { Image, TouchableOpacity, View } from "react-native";
-import { AppText as Text } from "@/components/ui/AppText";
 import { useColorScheme } from "nativewind";
+import { Image, TouchableOpacity, View } from "react-native";
 import { Article } from "../../type";
 
 const NewsCard = ({ article }: { article: Article }) => {
@@ -23,7 +23,7 @@ const NewsCard = ({ article }: { article: Article }) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={handlePress} testID="news-card">
       <View className="news-card p-4">
         <View className="news-card-accent-bar" />
 
@@ -45,7 +45,15 @@ const NewsCard = ({ article }: { article: Article }) => {
                 {source.name}
               </Text>
 
-              <TouchableOpacity onPress={() => toggleFavorite(article)}>
+              <TouchableOpacity
+                onPress={() => toggleFavorite(article)}
+                testID="favorite-button"
+                accessibilityLabel={
+                  isFavorite(article.url)
+                    ? "Favorilerden çıkar"
+                    : "Favorilere ekle"
+                }
+              >
                 <Ionicons
                   name={isFavorite(article.url) ? "star" : "star-outline"}
                   size={20}
