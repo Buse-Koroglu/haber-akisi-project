@@ -1,6 +1,6 @@
+import { AppText as Text } from "@/components/ui/AppText";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { AppText as Text } from "@/components/ui/AppText";
 
 interface PaginationProps {
   currentPage: number;
@@ -19,6 +19,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         className="pagination-nav-button"
         disabled={currentPage === 1}
         onPress={() => onPageChange(currentPage - 1)}
+        testID="pagination-prev"
       >
         <Text
           className={`pagination-nav-button-text ${currentPage === 1 ? "pagination-disabled-text" : ""}`}
@@ -35,6 +36,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         className="pagination-nav-button"
         disabled={currentPage === totalPages}
         onPress={() => onPageChange(currentPage + 1)}
+        testID="pagination-next"
       >
         <Text
           className={`pagination-nav-button-text ${currentPage === totalPages ? "pagination-disabled-text" : ""}`}
