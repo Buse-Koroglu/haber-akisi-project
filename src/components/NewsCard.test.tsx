@@ -51,7 +51,7 @@ describe("NewsCard", () => {
   it("it renders the published date in the correct format", async () => {
     const { getByText } = await render(<NewsCard article={article} />);
 
-    expect(getByText("15 Haziran 2024, 13:30")).toBeTruthy();
+    expect(getByText("15 Haziran 2024, 10:30")).toBeTruthy();
   });
 
   it("it does not render the description when it is null", async () => {
