@@ -2,13 +2,52 @@
 # Haber Akışı Projesi
  
 Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + TypeScript.
- <img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 44 (4)" src="https://github.com/user-attachments/assets/69127d60-4ed7-41a7-89ad-cf6937936a75" />
- <img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 45" src="https://github.com/user-attachments/assets/bd8cd553-9f71-4f3b-bdc4-7c48c8a3ad01" />
- <img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 44 (3)" src="https://github.com/user-attachments/assets/4ddbad9c-1eb6-4e7f-bcbf-5b00e1af7d97" />
- <img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 44 (2)" src="https://github.com/user-attachments/assets/73bcd0f2-19a7-4ee4-8cc7-1d0f413111c3" />
-<img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 44 (1)" src="https://github.com/user-attachments/assets/47502308-1178-4caf-a20c-814d7ebb509b" />
-<img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 44" src="https://github.com/user-attachments/assets/00036a0e-210a-4be0-bc18-51fadfe2a5fe" />
-<img width="501" height="1024" alt="WhatsApp Image 2026-07-18 at 12 59 43" src="https://github.com/user-attachments/assets/40643593-2cbf-4c96-a496-9a84d3d02e5c" />
+## Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/69127d60-4ed7-41a7-89ad-cf6937936a75" width="100%" alt="Home Feed">
+        <p><b>Home Feed</b></p>
+      </td>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/bd8cd553-9f71-4f3b-bdc4-7c48c8a3ad01" width="100%" alt="Explore">
+        <p><b>Category Selected</b></p>
+      </td>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/4ddbad9c-1eb6-4e7f-bcbf-5b00e1af7d97" width="100%" alt="Saved">
+        <p><b>Search</b></p>
+      </td>
+    </tr>
+  </table>
+  
+  <table>
+    <tr>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/73bcd0f2-19a7-4ee4-8cc7-1d0f413111c3" width="100%" alt="Search">
+        <p><b>Favorites Page</b></p>
+      </td>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/47502308-1178-4caf-a20c-814d7ebb509b" width="100%" alt="Detail">
+        <p><b>Sort Modal</b></p>
+      </td>
+      <td width="33%">
+        <img src="https://github.com/user-attachments/assets/00036a0e-210a-4be0-bc18-51fadfe2a5fe" width="100%" alt="Dark Mode">
+        <p><b>Detail Page</b></p>
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td width="50%">
+        <img src="https://github.com/user-attachments/assets/40643593-2cbf-4c96-a496-9a84d3d02e5c" width="33%" alt="Profile">
+        <p><b>Webview Page</b></p>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
  
