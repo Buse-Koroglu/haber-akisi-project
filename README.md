@@ -2,22 +2,22 @@
 # Haber Akışı Projesi
  
 Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + TypeScript.
-## Screenshots
+## Ekran Görüntüleri
 
 <div align="center">
   <table>
     <tr>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/69127d60-4ed7-41a7-89ad-cf6937936a75" width="100%" alt="Home Feed">
-        <p><b>Home Feed</b></p>
+        <p><b>Ana Syfa</b></p>
       </td>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/bd8cd553-9f71-4f3b-bdc4-7c48c8a3ad01" width="100%" alt="Explore">
-        <p><b>Category Selected</b></p>
+        <p><b>Kategori Sayfası</b></p>
       </td>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/4ddbad9c-1eb6-4e7f-bcbf-5b00e1af7d97" width="100%" alt="Saved">
-        <p><b>Search</b></p>
+        <p><b>Arama</b></p>
       </td>
     </tr>
   </table>
@@ -26,15 +26,15 @@ Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + 
     <tr>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/73bcd0f2-19a7-4ee4-8cc7-1d0f413111c3" width="100%" alt="Search">
-        <p><b>Favorites Page</b></p>
+        <p><b>Favoriler Sayfası</b></p>
       </td>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/47502308-1178-4caf-a20c-814d7ebb509b" width="100%" alt="Detail">
-        <p><b>Sort Modal</b></p>
+        <p><b>Sıralama Modal</b></p>
       </td>
       <td width="33%">
         <img src="https://github.com/user-attachments/assets/00036a0e-210a-4be0-bc18-51fadfe2a5fe" width="100%" alt="Dark Mode">
-        <p><b>Detail Page</b></p>
+        <p><b>Detay Sayfası</b></p>
       </td>
     </tr>
   </table>
@@ -43,7 +43,7 @@ Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + 
     <tr>
       <td width="50%">
         <img src="https://github.com/user-attachments/assets/40643593-2cbf-4c96-a496-9a84d3d02e5c" width="33%" alt="Profile">
-        <p><b>Webview Page</b></p>
+        <p><b>Webview Sayfası</b></p>
       </td>
     </tr>
   </table>
