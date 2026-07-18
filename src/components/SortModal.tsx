@@ -1,7 +1,7 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Modal, Pressable, TouchableOpacity, View } from "react-native";
 import { AppText as Text } from "@/components/ui/AppText";
 import { SortOption, useSort } from "@/context/SortContext";
+import { Ionicons } from "@expo/vector-icons";
+import { Modal, Pressable, TouchableOpacity } from "react-native";
 
 interface SortModalProps {
   visible: boolean;
@@ -24,7 +24,11 @@ export const SortModal = ({ visible, onClose }: SortModalProps) => {
       animationType="fade"
       onRequestClose={onClose}
     >
-      <Pressable className="sort-modal-backdrop" onPress={onClose}>
+      <Pressable
+        className="sort-modal-backdrop"
+        onPress={onClose}
+        testID="sort-modal-backdrop"
+      >
         <Pressable className="sort-modal-content">
           <Text className="sort-modal-title">Sıralama</Text>
 
@@ -53,7 +57,12 @@ export const SortModal = ({ visible, onClose }: SortModalProps) => {
                   {option.label}
                 </Text>
                 {isActive && (
-                  <Ionicons name="checkmark" size={18} color="#F2B705" />
+                  <Ionicons
+                    name="checkmark"
+                    size={18}
+                    color="#F2B705"
+                    testID={`sort-check-${option.id}`}
+                  />
                 )}
               </TouchableOpacity>
             );
