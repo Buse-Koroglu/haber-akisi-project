@@ -1,15 +1,14 @@
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import { Alert, TouchableOpacity, View, Image, Share } from "react-native";
 import { AppText as Text } from "@/components/ui/AppText";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { SortModal } from "./SortModal";
+import { APP_THEME } from "@/constants/theme";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter, useSegments } from "expo-router";
 import { useColorScheme } from "nativewind";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { APP_THEME } from "@/constants/theme";
+import { useState } from "react";
+import { Alert, Image, Share, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Article } from "../../type";
-import { is } from "date-fns/locale";
+import { SortModal } from "./SortModal";
 
 export const AppHeader = () => {
   const [isSortModalVisible, setIsSortModalVisible] = useState(false);
@@ -56,7 +55,10 @@ export const AppHeader = () => {
       className="bg-background dark:bg-darkBackground"
     >
       <View className="app-header">
-        <TouchableOpacity onPress={() => router.push("/")}>
+        <TouchableOpacity
+          onPress={() => router.push("/")}
+          testID="header-logo-button"
+        >
           <Image
             source={require("@/assets/images/logo.png")}
             style={{ width: 40, height: 40 }}
@@ -68,7 +70,10 @@ export const AppHeader = () => {
           Odak<Text className="app-header-logo-dot">.</Text>
         </Text>
         <View className="app-header-icon-wrap flex-row items-center gap-4">
-          <TouchableOpacity onPress={handleThemeToggle}>
+          <TouchableOpacity
+            onPress={handleThemeToggle}
+            testID="theme-toggle-button"
+          >
             <Ionicons
               name={colorScheme === "dark" ? "sunny-outline" : "moon-outline"}
               size={22}
@@ -77,7 +82,7 @@ export const AppHeader = () => {
           </TouchableOpacity>
 
           {isDetailsScreen ? (
-            <TouchableOpacity onPress={handleShare}>
+            <TouchableOpacity onPress={handleShare} testID="share-button">
               {isDark ? (
                 <Image
                   source={require("@/assets/images/light_share.png")}
@@ -93,7 +98,7 @@ export const AppHeader = () => {
               )}
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={handleSortPress}>
+            <TouchableOpacity onPress={handleSortPress} testID="sort-button">
               <Ionicons name="options-outline" size={24} color={iconColor} />
             </TouchableOpacity>
           )}
