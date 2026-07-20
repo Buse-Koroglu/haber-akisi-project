@@ -1,39 +1,41 @@
-
 # Haber Akışı Projesi
- 
-Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + TypeScript.
+
+iOS, Android ve Web platformlarında çalışan çapraz platform haber akışı uygulaması.
+
+**Expo + React Native + TypeScript**
+
 ## Ekran Görüntüleri
 
 <div align="center">
   <table>
     <tr>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/69127d60-4ed7-41a7-89ad-cf6937936a75" width="100%" alt="Home Feed">
-        <p><b>Ana Syfa</b></p>
+        <img src="https://github.com/user-attachments/assets/69127d60-4ed7-41a7-89ad-cf6937936a75" width="100%" alt="Ana Sayfa">
+        <p><b>Ana Sayfa</b></p>
       </td>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/bd8cd553-9f71-4f3b-bdc4-7c48c8a3ad01" width="100%" alt="Explore">
+        <img src="https://github.com/user-attachments/assets/bd8cd553-9f71-4f3b-bdc4-7c48c8a3ad01" width="100%" alt="Kategori">
         <p><b>Kategori Sayfası</b></p>
       </td>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/4ddbad9c-1eb6-4e7f-bcbf-5b00e1af7d97" width="100%" alt="Saved">
+        <img src="https://github.com/user-attachments/assets/4ddbad9c-1eb6-4e7f-bcbf-5b00e1af7d97" width="100%" alt="Arama">
         <p><b>Arama</b></p>
       </td>
     </tr>
   </table>
-  
+
   <table>
     <tr>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/73bcd0f2-19a7-4ee4-8cc7-1d0f413111c3" width="100%" alt="Search">
+        <img src="https://github.com/user-attachments/assets/73bcd0f2-19a7-4ee4-8cc7-1d0f413111c3" width="100%" alt="Favoriler">
         <p><b>Favoriler Sayfası</b></p>
       </td>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/47502308-1178-4caf-a20c-814d7ebb509b" width="100%" alt="Detail">
-        <p><b>Sıralama Modal</b></p>
+        <img src="https://github.com/user-attachments/assets/47502308-1178-4caf-a20c-814d7ebb509b" width="100%" alt="Sıralama">
+        <p><b>Sıralama Modalı</b></p>
       </td>
       <td width="33%">
-        <img src="https://github.com/user-attachments/assets/00036a0e-210a-4be0-bc18-51fadfe2a5fe" width="100%" alt="Dark Mode">
+        <img src="https://github.com/user-attachments/assets/00036a0e-210a-4be0-bc18-51fadfe2a5fe" width="100%" alt="Detay">
         <p><b>Detay Sayfası</b></p>
       </td>
     </tr>
@@ -42,193 +44,218 @@ Cross-platform news feed uygulaması (iOS, Android, Web). Expo + React Native + 
   <table>
     <tr>
       <td width="50%">
-        <img src="https://github.com/user-attachments/assets/40643593-2cbf-4c96-a496-9a84d3d02e5c" width="33%" alt="Profile">
-        <p><b>Webview Sayfası</b></p>
+        <img src="https://github.com/user-attachments/assets/40643593-2cbf-4c96-a496-9a84d3d02e5c" width="33%" alt="WebView">
+        <p><b>WebView Sayfası</b></p>
       </td>
     </tr>
   </table>
 </div>
 
+---
 
- 
 ## Proje Yapısı
- 
-```
+
+```text
 src/
-├── app/              # Expo Router (file-based routing)
-├── components/       # Reusable UI bileşenleri
-├── hooks/            # Business logic (useNews, useSearch, useSavedNews)
-├── services/         # API & AsyncStorage layer
-├── types/            # TypeScript definitions
-├── utils/            # Helpers (debounce, formatters)
-└── context/          # Global state (theme)
+├── app/              # Expo Router (dosya tabanlı yönlendirme)
+├── components/       # Yeniden kullanılabilir kullanıcı arayüzü bileşenleri
+├── hooks/            # İş mantığı (useNews, useSearch, useSavedNews)
+├── services/         # API ve AsyncStorage katmanı
+├── types/            # TypeScript tip tanımları
+├── utils/            # Yardımcı fonksiyonlar (debounce, formatter vb.)
+└── context/          # Global durum yönetimi (tema)
 ```
 
-## Environment Variable Protection (Vercel):
-- `.env` ve `.env.*.local` dosyaları `.gitignore`'da (git'e commit yok)
-- Local development: `.env.example`'dan template alınır, dev values doldurulur
-- Production: API keys, tokens, database URLs **Vercel dashboard**'da tutuluyor
-- Deployment sırasında Vercel otomatik inject ediyor (build time'da)
-- Staging vs Production secrets ayrı manage edilebiliyor
-- `EXPO_PUBLIC_` prefix'i only public variables için (bunlar source code'da görülse ok)
-- Sensitive data hiçbir zaman repo'da yok
+## Ortam Değişkeni Güvenliği (Vercel)
+
+* `.env` ve `.env.*.local` dosyaları `.gitignore` içerisinde yer alır (Git'e eklenmez).
+* Geliştirme ortamında `.env.example` dosyası şablon olarak kullanılır.
+* Production ortamındaki API anahtarları, token'lar ve diğer gizli bilgiler **Vercel Dashboard** üzerinden yönetilir.
+* Deployment sırasında Vercel bu değişkenleri otomatik olarak build sürecine ekler.
+* Staging ve Production ortamları için farklı gizli bilgiler yönetilebilir.
+* `EXPO_PUBLIC_` öneki yalnızca herkese açık değişkenler için kullanılır.
+* Hassas bilgiler hiçbir zaman repository içerisinde tutulmaz.
+
 ---
- 
+
+## Kullanılan Teknolojiler
+
+| Katman            | Teknoloji                   | Kullanım Amacı                                           |
+| ----------------- | --------------------------- | -------------------------------------------------------- |
+| **Arayüz**        | React 19, React Native 0.85 | Çapraz platform geliştirme, güncel React özellikleri     |
+| **Stil**          | NativeWind + Tailwind       | Utility-first yaklaşımı ve tutarlı tasarım sistemi       |
+| **Yönlendirme**   | Expo Router                 | Dosya tabanlı yönlendirme, tip güvenliği ve deep linking |
+| **Veri Yönetimi** | React Query + AsyncStorage  | Akıllı önbellekleme ve çevrimdışı destek                 |
+| **Tip Güvenliği** | TypeScript (Strict Mode)    | Derleme zamanında hata yakalama                          |
+| **Doğrulama**     | Zod                         | Şema doğrulama ve tip çıkarımı                           |
+
 ---
- 
-## Tech Stack
- 
-| Layer | Teknoloji | Neden |
-|-------|-----------|-------|
-| **UI** | React 19, React Native 0.85 | Cross-platform, latest features |
-| **Styling** | NativeWind + Tailwind | Utility-first, consistent design system |
-| **Routing** | Expo Router | File-based, typed routes, deep linking |
-| **Data** | React Query + AsyncStorage | Smart caching + offline support |
-| **Type Safety** | TypeScript strict | Compile-time errors vs runtime |
-| **Validation** | Zod | Schema validation, type inference |
- 
----
- 
+
 ## Kritik Teknik Kararlar
- 
-### 1. React Query + AsyncStorage (Hybrid Data Strategy)
- 
-**Problem:** Mobil uygulamalarda network unreliable
- 
+
+### 1. React Query + AsyncStorage (Hibrit Veri Stratejisi)
+
+**Problem:** Mobil uygulamalarda ağ bağlantısı her zaman güvenilir değildir.
+
 **Çözüm:**
-- React Query = server state (smart caching, background sync)
-- AsyncStorage = offline fallback (kaydedilen haberler, user prefs)
-- User online mi offline mi sistem otomatik handle eder
-**Flow:**
+
+* React Query = Sunucu verisini yönetir, önbellek oluşturur ve arka planda günceller.
+* AsyncStorage = Favoriler ve kullanıcı tercihleri gibi verileri cihazda saklar.
+* Kullanıcının çevrim içi veya çevrim dışı olması otomatik olarak yönetilir.
+
+**Akış:**
+
+```text
+Uygulama açılır →
+AsyncStorage'dan anlık veriler yüklenir →
+API isteği paralel olarak yapılır →
+İnternet varsa güncel veriler gösterilir
 ```
-User açılır → AsyncStorage'dan instant results → 
-API call paralel → Fresh data update (network varsa)
-```
- 
-**Impact:** Users hiç "no data" görmez. Network slow/gone olsa da app çalışır.
- 
+
+**Etkisi:**
+
+Kullanıcı ağ bağlantısı yavaş veya kesilmiş olsa bile uygulamayı kullanmaya devam edebilir.
+
 ---
- 
-### 2. Debounce Search/Filter (Network Optimization)
- 
-**Problem:** Her karakter yazdığında API çağrısı = 100 çağrı bir kelime için
- 
-**Çözüm:** 300ms debounce
-- User yazarken bekleme
-- Son 300ms sessiz kalınca API call
-- Aynı anda AsyncStorage'dan instant results göster
-**Impact:** 
-- API calls 90% az
-- Server yükü düşer
-- User experience smooth kalır
-**Production Case:** Large deployments'da debounce/throttle olmazsa server crasher.
- 
----
- 
-### 3. Image Optimization (expo-image)
- 
-**Problem:** Mobilde ağır resimler = yavaş scroll, battery drain
- 
+
+### 2. Debounce Arama / Filtreleme (Ağ Optimizasyonu)
+
+**Problem:**
+
+Her karakter girişinde API isteği yapılması gereksiz ağ trafiğine neden olur.
+
 **Çözüm:**
-- Otomatik compression
-- Progressive loading (blur → sharp)
-- WebP format
-- Lazy loading
-**Impact:** 60FPS smooth scrolling, low memory footprint
- 
+
+* 500 ms debounce uygulanır.
+* Kullanıcı yazmayı bıraktığında API isteği yapılır.
+* Aynı anda AsyncStorage'daki kayıtlı sonuçlar gösterilebilir.
+
+**Etkisi**
+
+* API istekleri önemli ölçüde azalır.
+* Sunucu üzerindeki yük düşer.
+* Daha akıcı bir kullanıcı deneyimi sağlanır.
+
+**Production Senaryosu**
+
+Büyük ölçekli uygulamalarda debounce/throttle kullanılmaması gereksiz istek yüküne neden olabilir.
+
 ---
- 
-### 4. Error Boundaries per Feature
- 
-**Problem:** Bir sayfanın crash'ı tüm app'ı kırar
- 
-**Çözüm:** Her feature'ın kendi ErrorBoundary'si
-- Feed crash → Diğer tabs çalışır
-- Search error → User "retry" yapabilir
-- Graceful degradation
-**Impact:** Reliability. Production app asla completely down görünmez.
- 
+
+### 3. Feature Bazlı Error Boundary
+
+**Problem**
+
+Bir sayfadaki hata tüm uygulamayı etkileyebilir.
+
+**Çözüm**
+
+Her özelliğin kendi Error Boundary yapısı bulunur.
+
+* Feed hata verse bile diğer sekmeler çalışmaya devam eder.
+* Arama ekranındaki hata diğer ekranları etkilemez.
+
 ---
- 
-### 5. Offline-First Mindset (AsyncStorage)
- 
-**Problem:** Turkey'de offline periods normal (traffic, coverage gaps)
- 
-**Çözüm:**
-- Kaydedilen haberler AsyncStorage'da persist
-- Theme + settings AsyncStorage'da
-- App offline bile functional
-**What NOT to sync offline:**
-- Real-time trending
-- Current weather
-- Live comments
-**Impact:** 30-40% users offline mode kullanır (analytics)
- 
+
+### 4. Offline-First Yaklaşımı (AsyncStorage)
+
+**Problem**
+
+Mobil cihazlarda internet bağlantısı her zaman kesintisiz olmayabilir.
+
+**Çözüm**
+
+* Favorilenen haberler AsyncStorage içerisinde saklanır.
+* Tema bilgisi cihazda tutulur.
+* Uygulama çevrim dışıyken de temel özellikler kullanılabilir.
+
+**Çevrim dışı senkronize edilmeyen veriler**
+
+* Gerçek zamanlı trend haberleri
+* Hava durumu
+* Canlı yorumlar
+
 ---
- 
-## Sayfalı ve Teknikler
- 
-| Sayfa | Amaç | Teknik |
-|-------|------|--------|
-| **Feed** | Haber akışı | FlatList virtualization, infinite scroll, pull-to-refresh |
-| **Explore** | Kategoriye göre | Debounced filters, multi-faceted search |
-| **Saved** | Bookmarks | AsyncStorage as source of truth |
-| **Profile** | Settings | Context API (theme), immediate updates |
- 
+
+## Sayfalar ve Kullanılan Teknikler
+
+| Sayfa                | Amaç                            | Kullanılan Teknik                                         |
+| -------------------- | ------------------------------- | --------------------------------------------------------- |
+| **Feed**             | Haber akışı                     | FlatList Virtualization, Infinite Scroll, Pull-to-Refresh |
+| **Kategori Sayfası** | Kategoriye göre haber listeleme | Debounced Filters, Çoklu filtreleme                       |
+| **Haber Detayı**     | Haber içeriğini görüntüleme     | useLocalSearchParams                                      |
+| **WebView Sayfası**  | Haber kaynağını görüntüleme     | WebView Component                                         |
+| **Favoriler**        | Kaydedilen haberler             | AsyncStorage veri kaynağı                                 |
+
 ---
- 
-## Performance Targets
- 
-| Metrik | Hedef | |
-|--------|-------|---|
-| Initial load | < 3s | Code splitting, lazy routes |
-| Feed FPS | 60 | FlatList virtualization, React.memo |
-| Search response | < 500ms | Debounce + cache |
-| Bundle size | < 5MB | Tree-shaking, dynamic imports |
- 
-**Test on real devices** (Android low-end simulation). Simulator yalan söyler.
- 
+
+## Performans Hedefleri
+
+| Metrik            | Hedef    | Kullanılan Yaklaşım                 |
+| ----------------- | -------- | ----------------------------------- |
+| İlk açılış süresi | < 3 sn   | Code Splitting, Lazy Routes         |
+| Feed FPS          | 60       | FlatList Virtualization, React.memo |
+| Arama süresi      | < 500 ms | Debounce + Cache                    |
+| Paket Boyutu      | < 5 MB   | Tree Shaking, Dynamic Imports       |
+
+Gerçek cihazlarda test edilmesi önerilir (özellikle düşük donanımlı Android cihazlarda).
+
 ---
- 
-## Critical for Production
- 
-1. **Type Safety**
-   - Strict TypeScript mode
-   - API response validation (Zod)
-   - No `any` types
-2. **Error Handling**
-   - Error boundaries
-   - Retry logic (exponential backoff)
-   - User-friendly messages
-3. **Network Awareness**
-   - Detect offline → Show cached data
-   - Retry on connection restore
-   - Queue requests (if needed)
-4. **Testing**
-   - Unit tests (utils, hooks)
-   - Component tests (UI interactions)
-   - Integration tests (data flows)
+
+## Production İçin Dikkat Edilen Noktalar
+
+### Tip Güvenliği
+
+* Strict TypeScript Mode
+* Zod ile API doğrulaması
+* `any` kullanımından kaçınılması
+
+### Hata Yönetimi
+
+* Error Boundaries
+* Exponential Backoff ile tekrar deneme
+
+### Ağ Yönetimi
+
+* Çevrim dışı durumun tespiti
+* Bağlantı geri geldiğinde yeniden deneme
+* Gerekirse istek kuyruğu oluşturma
+
+### Testler
+
+* Unit Testleri
+* Component Testleri
+* Integration Testleri
+
 ---
- 
+
 ## Deployment
- 
-- **Web:** Vercel (static export)
-- **Mobile:** EAS Build (Expo's cloud builder)
-- **Env:** Dev → Staging → Production
+
+* **Web:** Vercel (Static Export)
+* **Mobil:** Expo EAS Build
+* **Ortamlar:** Development → Staging → Production
+
 ---
- 
-## Key Takeaways
- 
-✅ **Debounce** = less API calls, better UX  
-✅ **React Query** = smart caching, background sync  
-✅ **AsyncStorage** = offline support, critical for mobile  
-✅ **Type Safety** = fewer bugs at scale  
-✅ **Image Optimization** = smooth 60FPS scrolling  
-✅ **Error Boundaries** = app reliability  
- 
-**Production philosophy:** Assume network fails, design for offline, optimize images, test on slow devices.
- 
+
+## Öne Çıkan Teknikler
+
+✅ Debounce ile gereksiz API çağrılarının azaltılması
+
+✅ React Query ile akıllı önbellekleme
+
+✅ AsyncStorage ile çevrim dışı destek
+
+✅ TypeScript ile tip güvenliği
+
+✅ Görsel optimizasyonları sayesinde daha akıcı kaydırma deneyimi
+
+✅ Error Boundaries ile uygulama kararlılığı
+
+**Yaklaşım:** Ağ bağlantısının her zaman güvenilir olmadığı varsayılarak çevrim dışı kullanım ve performans odaklı bir yapı hedeflenmiştir.
+
 ---
- 
-**Version:** 1.0.0 
-**Repo:** https://github.com/Buse-Koroglu/haber-akisi-project
+
+**Versiyon:** 1.0.0
+
+**Repository:** https://github.com/Buse-Koroglu/haber-akisi-project
+
