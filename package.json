@@ -54,7 +54,8 @@
     "moduleNameMapper": {
       "^@/assets/(.*)$": "<rootDir>/assets/$1",
       "^@/(.*)$": "<rootDir>/src/$1"
-    }
+    },
+    "globalSetup": "./jest.globalSetup.js"
   },
   "scripts": {
     "start": "expo start",
